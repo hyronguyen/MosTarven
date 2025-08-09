@@ -17,12 +17,17 @@ public class BuildSystem : MonoBehaviour
 
     void Start()
     {
+        ReCheckValidCell();
+    }
+
+    private void ReCheckValidCell()
+    {
         validCells = new HashSet<Vector3Int>();
         BoundsInt bounds = tilemap.cellBounds;
 
         for (int x = bounds.xMin + 1; x < bounds.xMax; x++)  // Bỏ cột ngoài cùng bên trái
         {
-            for (int y = bounds.yMin+1; y < bounds.yMax; y++) // Bỏ hàng cuối cùng y = yMax - 1
+            for (int y = bounds.yMin + 1; y < bounds.yMax; y++) // Bỏ hàng cuối cùng y = yMax - 1
             {
                 Vector3Int cell = new Vector3Int(x, y, 0);
                 if (tilemap.HasTile(cell))
@@ -35,8 +40,6 @@ public class BuildSystem : MonoBehaviour
 
         Debug.Log($"Tổng số ô hợp lệ: {validCells.Count}");
     }
-
-
 
 
 
@@ -86,6 +89,7 @@ public class BuildSystem : MonoBehaviour
         if (isPlacing) CancelPlacing();
 
         isPlacing = true;
+        ReCheckValidCell();
         currentGhost = Instantiate(ghostCookerPrefab);
         currentGhost.SetActive(true);
     }
