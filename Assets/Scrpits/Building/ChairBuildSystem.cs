@@ -5,6 +5,8 @@ using UnityEngine.Tilemaps;
 
 public class ChairBuildSystem : MonoBehaviour
 {
+
+    // LOCAL VARIBLES ##########################################################################
     private Tilemap tilemap;
     public GameObject chairPrefab;
     public GameObject ghostChairPrefab;
@@ -14,6 +16,7 @@ public class ChairBuildSystem : MonoBehaviour
     private HashSet<Vector3Int> validCells;
     private bool isFlipped = false;
 
+    // START ####################################################################################
     void Start()
     {
         // Tìm tilemap theo tag
@@ -29,33 +32,8 @@ public class ChairBuildSystem : MonoBehaviour
         ReCheckValidCell();
     }
 
-    private void ReCheckValidCell()
-    {
-        validCells = new HashSet<Vector3Int>();
-
-        // Tìm tất cả bàn
-        TableScript[] tables = FindObjectsOfType<TableScript>();
-        foreach (var table in tables)
-        {
-            Vector3Int tableCell = tilemap.WorldToCell(table.transform.position);
-
-            // 2 ô hợp lệ: bên trái và bên trên bàn
-            Vector3Int leftCell = tableCell - Vector3Int.left; // Sửa lại ở đây
-            Vector3Int upCell = tableCell + Vector3Int.up;
-
-            if (tilemap.HasTile(leftCell))
-            {
-                validCells.Add(leftCell);
-            }
-            if (tilemap.HasTile(upCell))
-            {
-                validCells.Add(upCell);
-            }
-        }
-        Debug.Log($"Tổng số ô hợp lệ để đặt ghế: {validCells.Count}");
-    }
-
-    void Update()
+    // UPDATE ####################################################################################
+     void Update()
     {
         if (!isPlacing || currentGhost == null) return;
 
@@ -106,6 +84,35 @@ public class ChairBuildSystem : MonoBehaviour
         }
     }
 
+    // FUNCTION ####################################################################################
+    //FUNTION - Kiểm tra lại các ô hợp lệ để đặt ghế
+    private void ReCheckValidCell()
+    {
+        validCells = new HashSet<Vector3Int>();
+
+        // Tìm tất cả bàn
+        TableScript[] tables = FindObjectsOfType<TableScript>();
+        foreach (var table in tables)
+        {
+            Vector3Int tableCell = tilemap.WorldToCell(table.transform.position);
+
+            // 2 ô hợp lệ: bên trái và bên trên bàn
+            Vector3Int leftCell = tableCell - Vector3Int.left; // Sửa lại ở đây
+            Vector3Int upCell = tableCell + Vector3Int.up;
+
+            if (tilemap.HasTile(leftCell))
+            {
+                validCells.Add(leftCell);
+            }
+            if (tilemap.HasTile(upCell))
+            {
+                validCells.Add(upCell);
+            }
+        }
+      
+    }
+
+    //FUNTION - Bắt đau đặt ghế
     public void StartPlacing()
     {
         if (isPlacing) CancelPlacing();
@@ -123,6 +130,7 @@ public class ChairBuildSystem : MonoBehaviour
         }
     }
 
+    //FUNTION - Đặt ghế
     private void PlaceChair(Vector3Int cellPos, bool isLeftCell)
     {
         if (!validCells.Contains(cellPos) || BuildManager.Instance.placedObjects.ContainsKey(cellPos)) return;
@@ -131,18 +139,19 @@ public class ChairBuildSystem : MonoBehaviour
         placePosition.z = 0f;
         GameObject obj = Instantiate(chairPrefab, placePosition, Quaternion.identity);
 
-        int sortingOrder = -(cellPos.x * 10000) - cellPos.y;
+        int sortingOrder = Mathf.RoundToInt(-(placePosition.y * 1000f) - placePosition.x);
         SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
         if (sr != null)
         {
             sr.sortingOrder = sortingOrder;
-            sr.flipX = isLeftCell; // flipX nếu là leftCell
+            sr.flipX = isLeftCell;
         }
 
         BuildManager.Instance.placedObjects[cellPos] = obj;
         CancelPlacing();
     }
 
+    //FUNTION - Hủy đặt ghế
     private void CancelPlacing()
     {
         isPlacing = false;

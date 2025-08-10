@@ -42,14 +42,14 @@ public class PlayerScripts : MonoBehaviour
         else
         {
             playerAnimator.SetBool("playerIsRunning", false);
-            Debug.Log("Player đứng yên");
         }
 
         // Sorting order theo tilemap giống BuildSystem
         if (tilemap != null)
         {
             Vector3Int cellPos = tilemap.WorldToCell(transform.position);
-            int sortingOrder = -(cellPos.x * 10000) - cellPos.y;
+            Vector3 playerPosition = tilemap.GetCellCenterWorld(cellPos);
+             int sortingOrder = Mathf.RoundToInt(-(playerPosition.y * 1000f) - playerPosition.x);
             playerSpriteRenderer.sortingOrder = sortingOrder;
         }
     }

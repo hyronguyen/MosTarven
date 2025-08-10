@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public Transform player;       // ??i t??ng Player ?? theo dõi
+    public Transform player;       // ??i t??ng Player ?? theo dï¿½i
     public float followSpeed = 5f; // T?c ?? theo
     public float zoomSpeed = 2f;   // T?c ?? zoom
     public float minZoom = 3f;     // Gi?i h?n zoom g?n nh?t
@@ -16,7 +16,7 @@ public class CameraController : MonoBehaviour
 
         if (player == null)
         {
-            Debug.LogError("Ch?a gán Player cho CameraController!");
+            Debug.LogError("Ch?a gï¿½n Player cho CameraController!");
         }
     }
 
@@ -24,12 +24,12 @@ public class CameraController : MonoBehaviour
     {
         if (player != null)
         {
-            // Camera m??t mà theo Player
+            // Camera m??t mï¿½ theo Player
             Vector3 targetPos = new Vector3(player.position.x, player.position.y, transform.position.z);
             transform.position = Vector3.Lerp(transform.position, targetPos, followSpeed * Time.deltaTime);
         }
 
-        // X? lý zoom b?ng cu?n chu?t
+        // X? lï¿½ zoom b?ng cu?n chu?t
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         if (scroll != 0f)
         {

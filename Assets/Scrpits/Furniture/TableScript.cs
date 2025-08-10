@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TableScript : MonoBehaviour
 {
+    public bool hasChair = false;
     // Start is called before the first frame update
     void Start()
     {

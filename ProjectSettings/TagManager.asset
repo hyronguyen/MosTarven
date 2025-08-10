@@ -7,6 +7,10 @@ TagManager:
   - coinTextTag
   - nameTextMobDetail
   - baseTilemap
+  - furniture
+  - foodImageFoodSelector
+  - foodTextFoodSelector
+  - foodPriceFoodSelector
   layers:
   - Default
   - TransparentFX

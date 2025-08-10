@@ -17,7 +17,7 @@ public class MonsterController : MonoBehaviour
     public bool isHired = true;
 
     [Header("Movement")]
-    public Tilemap tilemap;                    // Tilemap nền được truyền từ Inspector
+    private Tilemap tilemap;                    // Tilemap nền được truyền từ Inspector
     public float moveSpeed = 0.7f;               // Tốc độ di chuyển của monster
 
     private HashSet<Vector3Int> validCells;    // Tập hợp các ô hợp lệ để di chuyển
@@ -43,6 +43,8 @@ public class MonsterController : MonoBehaviour
     {
         monsterAnimator= GetComponent<Animator>();
         monsterSpriteRenderer =GetComponent<SpriteRenderer>();
+        GameObject tilemapObj = GameObject.Find("Base_tilemap");
+        tilemap = tilemapObj.GetComponent<Tilemap>();
 
 
         InitializeValidCells();
@@ -129,8 +131,6 @@ public class MonsterController : MonoBehaviour
                 }
             }
         }
-
-        Debug.Log($"Tổng số ô hợp lệ: {validCells.Count}");
     }
 
     // Chọn ô kế tiếp để đi đến (ví dụ chọn ngẫu nhiên trong các ô lân cận hợp lệ)
@@ -167,8 +167,6 @@ public class MonsterController : MonoBehaviour
         isMoving = true;
 
     }
-
-
 
     // Lấy danh sách các ô láng giềng hợp lệ (trái, phải, trên, dưới)
     private List<Vector3Int> GetValidNeighbors(Vector3Int cell)
@@ -239,7 +237,8 @@ public class MonsterController : MonoBehaviour
 
         // --- Sorting order theo tilemap giống BuildSystem ---
         Vector3Int cellPos = tilemap.WorldToCell(transform.position);
-        int sortingOrder = -(cellPos.x * 10000) - cellPos.y;
+        Vector3 monsterPosition = tilemap.GetCellCenterWorld(cellPos);
+        int sortingOrder = Mathf.RoundToInt(-(monsterPosition.y * 1000f) - monsterPosition.x);
         monsterSpriteRenderer.sortingOrder = sortingOrder;
         if (Vector3.Distance(transform.position, targetPos) < 0.01f)
         {

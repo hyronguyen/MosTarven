@@ -5,6 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class BuildSystem : MonoBehaviour
 {
+    // LOCAL VARIABLES ##########################################################################
     private Tilemap tilemap;                  // Tilemap nền
     public GameObject unitPrefab;          // Prefab cần đặt
     public GameObject ghostUnitPrefab;     // Prefab ghost (trong suốt)
@@ -14,7 +15,7 @@ public class BuildSystem : MonoBehaviour
     private HashSet<Vector3Int> validCells;
     private bool isFlipped = false; // Thêm biến lưu trạng thái flip
 
-
+    // START ####################################################################################
     void Start()
     {
          if (tilemap == null)
@@ -32,31 +33,8 @@ public class BuildSystem : MonoBehaviour
         ReCheckValidCell();
     }
 
-    private void ReCheckValidCell()
-    {
-        validCells = new HashSet<Vector3Int>();
-        BoundsInt bounds = tilemap.cellBounds;
-
-        for (int x = bounds.xMin + 1; x < bounds.xMax; x++)  // Bỏ cột ngoài cùng bên trái
-        {
-            for (int y = bounds.yMin + 1; y < bounds.yMax; y++) // Bỏ hàng cuối cùng y = yMax - 1
-            {
-                Vector3Int cell = new Vector3Int(x, y, 0);
-                if (tilemap.HasTile(cell))
-                {
-                    validCells.Add(cell);
-
-                }
-            }
-        }
-
-        Debug.Log($"Tổng số ô hợp lệ: {validCells.Count}");
-    }
-
-
-
-    void Update()
-    {
+    // UPDATE ####################################################################################
+    void Update(){
         if (!isPlacing || currentGhost == null) return;
 
         // Xử lý nhấn R để lật ghost
@@ -96,8 +74,7 @@ public class BuildSystem : MonoBehaviour
         {
             PlaceUnit(cellPos);
         }
-        Debug.Log(cellPos);
-
+       
         // Click phải để hủy
         if (Input.GetMouseButtonDown(1))
         {
@@ -105,6 +82,29 @@ public class BuildSystem : MonoBehaviour
         }
     }
 
+    // FUNCTION ####################################################################################
+    // FUNTION - Kiểm tra lại các ô hợp lệ để đặt
+    private void ReCheckValidCell()
+    {
+        validCells = new HashSet<Vector3Int>();
+        BoundsInt bounds = tilemap.cellBounds;
+
+        for (int x = bounds.xMin + 1; x < bounds.xMax; x++)  // Bỏ cột ngoài cùng bên trái
+        {
+            for (int y = bounds.yMin + 1; y < bounds.yMax; y++) // Bỏ hàng cuối cùng y = yMax - 1
+            {
+                Vector3Int cell = new Vector3Int(x, y, 0);
+                if (tilemap.HasTile(cell))
+                {
+                    validCells.Add(cell);
+
+                }
+            }
+        }
+
+    }
+
+    // FUNCTION - Bắt đầu đặt đơn vị
     public void StartPlacing()
     {
         if (isPlacing) CancelPlacing();
@@ -122,16 +122,22 @@ public class BuildSystem : MonoBehaviour
         }
     }
 
-    private void PlaceUnit(Vector3Int cellPos)
+    // FUNCTION - Đặt đơn vị tại ô đã chọn
+        private void PlaceUnit(Vector3Int cellPos)
     {
         // Không cho đặt nếu không có tile hoặc đã có object ở ô đó
         if (!tilemap.HasTile(cellPos) || BuildManager.Instance.placedObjects.ContainsKey(cellPos)) return;
 
+        // Lấy vị trí thế giới của ô
         Vector3 placePosition = tilemap.GetCellCenterWorld(cellPos);
+
+        Debug.Log($"Đặt đơn vị tại ô: {cellPos} - Vị trí: {placePosition}");
+
         placePosition.z = 0f;
         GameObject obj = Instantiate(unitPrefab, placePosition, Quaternion.identity);
 
-        int sortingOrder = -(cellPos.x * 10000) - cellPos.y;
+        int sortingOrder = Mathf.RoundToInt(-(placePosition.y * 1000f) - placePosition.x);
+
         SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
         if (sr != null)
         {
@@ -145,9 +151,7 @@ public class BuildSystem : MonoBehaviour
         CancelPlacing();
     }
 
-
-
-
+    // FUNCTION - Hủy đặt đơn vị
     private void CancelPlacing()
     {
         isPlacing = false;
