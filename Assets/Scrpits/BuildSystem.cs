@@ -5,18 +5,30 @@ using UnityEngine.Tilemaps;
 
 public class BuildSystem : MonoBehaviour
 {
-    public Tilemap tilemap;                  // Tilemap nền
-    public GameObject cookerPrefab;          // Prefab cần đặt
-    public GameObject ghostCookerPrefab;     // Prefab ghost (trong suốt)
+    private Tilemap tilemap;                  // Tilemap nền
+    public GameObject unitPrefab;          // Prefab cần đặt
+    public GameObject ghostUnitPrefab;     // Prefab ghost (trong suốt)
 
     private GameObject currentGhost;         // Phiên bản ghost đang hoạt động
     private bool isPlacing = false;
     private HashSet<Vector3Int> validCells;
-    private Dictionary<Vector3Int, GameObject> placedObjects = new Dictionary<Vector3Int, GameObject>();
+    private bool isFlipped = false; // Thêm biến lưu trạng thái flip
 
 
     void Start()
     {
+         if (tilemap == null)
+    {
+        GameObject go = GameObject.FindGameObjectWithTag("baseTilemap");
+        if (go != null)
+        {
+            tilemap = go.GetComponent<Tilemap>();
+        }
+        else
+        {
+            Debug.LogError("Không tìm thấy GameObject với tag 'baseTilemap'!");
+        }
+    }
         ReCheckValidCell();
     }
 
@@ -47,6 +59,17 @@ public class BuildSystem : MonoBehaviour
     {
         if (!isPlacing || currentGhost == null) return;
 
+        // Xử lý nhấn R để lật ghost
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            isFlipped = !isFlipped;
+            SpriteRenderer ghostSR = currentGhost.GetComponent<SpriteRenderer>();
+            if (ghostSR != null)
+            {
+                ghostSR.flipX = isFlipped;
+            }
+        }
+
         // Lấy vị trí chuột theo tile
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouseWorldPos.z = 0f;
@@ -62,17 +85,16 @@ public class BuildSystem : MonoBehaviour
         currentGhost.SetActive(true);
         currentGhost.transform.position = tilemap.GetCellCenterWorld(cellPos);
         // Kiểm tra ô hợp lệ và chưa có object
-        if (!validCells.Contains(cellPos) || placedObjects.ContainsKey(cellPos))
+        if (!validCells.Contains(cellPos) || BuildManager.Instance.placedObjects.ContainsKey(cellPos))
         {
             currentGhost.SetActive(false);
             return;
         }
 
-
         // Click trái để đặt
         if (Input.GetMouseButtonDown(0))
         {
-            PlaceCooker(cellPos);
+            PlaceUnit(cellPos);
         }
         Debug.Log(cellPos);
 
@@ -81,7 +103,6 @@ public class BuildSystem : MonoBehaviour
         {
             CancelPlacing();
         }
-
     }
 
     public void StartPlacing()
@@ -90,28 +111,36 @@ public class BuildSystem : MonoBehaviour
 
         isPlacing = true;
         ReCheckValidCell();
-        currentGhost = Instantiate(ghostCookerPrefab);
+        currentGhost = Instantiate(ghostUnitPrefab);
         currentGhost.SetActive(true);
+
+        // Đặt trạng thái flip cho ghost khi bắt đầu
+        SpriteRenderer ghostSR = currentGhost.GetComponent<SpriteRenderer>();
+        if (ghostSR != null)
+        {
+            ghostSR.flipX = isFlipped;
+        }
     }
 
-    private void PlaceCooker(Vector3Int cellPos)
+    private void PlaceUnit(Vector3Int cellPos)
     {
         // Không cho đặt nếu không có tile hoặc đã có object ở ô đó
-        if (!tilemap.HasTile(cellPos) || placedObjects.ContainsKey(cellPos)) return;
+        if (!tilemap.HasTile(cellPos) || BuildManager.Instance.placedObjects.ContainsKey(cellPos)) return;
 
         Vector3 placePosition = tilemap.GetCellCenterWorld(cellPos);
         placePosition.z = 0f;
-        GameObject obj = Instantiate(cookerPrefab, placePosition, Quaternion.identity);
+        GameObject obj = Instantiate(unitPrefab, placePosition, Quaternion.identity);
 
         int sortingOrder = -(cellPos.x * 10000) - cellPos.y;
         SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
         if (sr != null)
         {
             sr.sortingOrder = sortingOrder;
+            sr.flipX = isFlipped; // Áp dụng flip cho object thật
         }
 
         // Ghi lại object đã đặt ở vị trí này
-        placedObjects[cellPos] = obj;
+        BuildManager.Instance.placedObjects[cellPos] = obj;
 
         CancelPlacing();
     }

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &277988466123639860
+--- !u!1 &1344539492791809357
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 277988466123639865}
-  - component: {fileID: 277988466123639866}
-  - component: {fileID: 277988466123639867}
-  - component: {fileID: 277988466123639864}
-  - component: {fileID: 277988466123639871}
+  - component: {fileID: 5823129196361392966}
+  - component: {fileID: 771126660626835226}
+  - component: {fileID: 4711183877578606086}
   m_Layer: 0
-  m_Name: Monster0_1
-  m_TagString: Untagged
+  m_Name: Table_0
+  m_TagString: furniture
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &277988466123639865
+--- !u!4 &5823129196361392966
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 277988466123639860}
+  m_GameObject: {fileID: 1344539492791809357}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.2201061, y: -1.8418306, z: 0}
+  m_LocalPosition: {x: 2.43, y: -2.32, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &277988466123639866
+--- !u!212 &771126660626835226
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 277988466123639860}
+  m_GameObject: {fileID: 1344539492791809357}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -76,74 +74,26 @@ SpriteRenderer:
   m_SortingLayerID: 243804383
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 978012912, guid: 635f1ae2624506743b7877b1a727b43f, type: 3}
+  m_Sprite: {fileID: -743406509, guid: c6d28e4299d41714381f5638ddf25daf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1.1111112}
+  m_Size: {x: 0.8888889, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &277988466123639867
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 277988466123639860}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c6f3e740ac57c2a44a0403652a5aa62e, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &277988466123639864
+--- !u!114 &4711183877578606086
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 277988466123639860}
+  m_GameObject: {fileID: 1344539492791809357}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b126783bcd4e16044b0662793f612f8f, type: 3}
+  m_Script: {fileID: 11500000, guid: 433025839d8d5604a9df93e2239c1fda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 0
-  health: 0
-  maxHealth: 0
-  energy: 0
-  maxEnergy: 0
-  nickname: 
-  type: 
-  description: 
-  isHired: 1
-  tilemap: {fileID: 0}
-  moveSpeed: 0.7
-  mobDetailPanel: {fileID: 0}
---- !u!70 &277988466123639871
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 277988466123639860}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.011648506, y: -0.06989092}
-  m_Size: {x: 0.49911517, y: 0.97132933}
-  m_Direction: 0

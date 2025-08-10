@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
 
     private Object coinText;
 
+
+
     void Awake()
     {
         filePath = Path.Combine(Application.streamingAssetsPath, "saveData.json");

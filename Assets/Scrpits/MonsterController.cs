@@ -237,7 +237,10 @@ public class MonsterController : MonoBehaviour
             monsterSpriteRenderer.flipX = true;   // Lật ngang sprite để hướng về trái
         }
 
-
+        // --- Sorting order theo tilemap giống BuildSystem ---
+        Vector3Int cellPos = tilemap.WorldToCell(transform.position);
+        int sortingOrder = -(cellPos.x * 10000) - cellPos.y;
+        monsterSpriteRenderer.sortingOrder = sortingOrder;
         if (Vector3.Distance(transform.position, targetPos) < 0.01f)
         {
             currentCell = pathCells[pathIndex];
