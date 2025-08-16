@@ -27,7 +27,7 @@ public class ChairBuildSystem : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Không tìm thấy GameObject với tag 'baseTilemap'!");
+            Debug.LogError("[ChairBuildSystem] Không tìm thấy GameObject với tag 'baseTilemap'!");
         }
         ReCheckValidCell();
     }

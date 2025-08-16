@@ -6,11 +6,11 @@ using UnityEngine.Tilemaps;
 public class BuildSystem : MonoBehaviour
 {
     // LOCAL VARIABLES ##########################################################################
-    private Tilemap tilemap;                  // Tilemap nền
+    private Tilemap tilemap;               // Tilemap nền
     public GameObject unitPrefab;          // Prefab cần đặt
     public GameObject ghostUnitPrefab;     // Prefab ghost (trong suốt)
 
-    private GameObject currentGhost;         // Phiên bản ghost đang hoạt động
+    private GameObject currentGhost;       // Phiên bản ghost đang hoạt động
     private bool isPlacing = false;
     private HashSet<Vector3Int> validCells;
     private bool isFlipped = false; // Thêm biến lưu trạng thái flip
@@ -27,7 +27,7 @@ public class BuildSystem : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Không tìm thấy GameObject với tag 'baseTilemap'!");
+            Debug.LogError("[BuildSystem] Không tìm thấy GameObject với tag 'baseTilemap'!");
         }
     }
         ReCheckValidCell();
@@ -131,7 +131,7 @@ public class BuildSystem : MonoBehaviour
         // Lấy vị trí thế giới của ô
         Vector3 placePosition = tilemap.GetCellCenterWorld(cellPos);
 
-        Debug.Log($"Đặt đơn vị tại ô: {cellPos} - Vị trí: {placePosition}");
+        Debug.Log($"[BuildSystem] Đặt đơn vị tại ô: {cellPos} - Vị trí: {placePosition}");
 
         placePosition.z = 0f;
         GameObject obj = Instantiate(unitPrefab, placePosition, Quaternion.identity);

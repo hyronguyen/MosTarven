@@ -1,0 +1,34 @@
+{
+    "foods": [
+        {
+            "foodButton": "Food19_button",
+            "foodCode": "Food_19",
+            "foodName": "Rotten Meat",
+            "foodIconSprite": "Food_19",
+            "foodDescription": "A piece of meat that has gone bad, emitting a foul odor.",
+            "foodTime": 30,
+            "foodPrice": 150,
+            "foodLvToUnlock": 1
+        },
+        {
+            "foodButton": "Food0_button",
+            "foodCode": "Food_0",
+            "foodName": "Food 0 Name",
+            "foodIconSprite": "Food_0",
+            "foodDescription": "A piece of meat that has gone bad, emitting a foul odor.",
+            "foodTime": 301,
+            "foodPrice": 300,
+            "foodLvToUnlock": 50
+        },
+         {
+            "foodButton": "Food1_button",
+            "foodCode": "Food_1",
+            "foodName": "Food 1 Name",
+            "foodIconSprite": "Food_1",
+            "foodDescription": "A piece of meat that has gone bad, emitting a foul odor.",
+            "foodTime": 201,
+            "foodPrice": 400,
+            "foodLvToUnlock": 2
+        }
+    ]
+}

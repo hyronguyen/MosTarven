@@ -11,6 +11,8 @@ TagManager:
   - foodImageFoodSelector
   - foodTextFoodSelector
   - foodPriceFoodSelector
+  - foodTimeFoodSelector
+  - foodDesFoodSelector
   layers:
   - Default
   - TransparentFX

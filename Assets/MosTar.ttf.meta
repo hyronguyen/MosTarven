@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 86ad117c400fb05499dc00b14bff0429
+guid: b629eaef607e77d4496d0b909a53b8c8
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Minecraftia
+  - MySims Racing DS Large Font
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

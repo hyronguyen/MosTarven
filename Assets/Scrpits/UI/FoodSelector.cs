@@ -5,11 +5,14 @@ using UnityEngine.UI;
 
 public class FoodSelector : MonoBehaviour
 {
+     // LOCAL VARIBLE #################################################
     public Transform contentParent;
     public string cookerId;
     public GameObject foodSelectedPrefab;
     public string foodCode;
+    public int foodTime;
 
+    // LIFE CYCLE #################################################
     void Start()
     {
         LoadButtons();
@@ -22,18 +25,20 @@ public class FoodSelector : MonoBehaviour
         }
     }
 
+     // FUNCTIONS #################################################
+  
     public void SetCookerId(string id)
     {
         cookerId = id;
-        Debug.Log("Food selectot set cooker IDto: " + cookerId);
+        Debug.Log("[FoodSelector] Đang mở từ Cooker ID: " + cookerId);
     }
 
-    public void SetFoodCode(string foodCode)
+    public void SetFoodCode(string foodCode, int foodTime)
     {
+        this.foodTime = foodTime;
         this.foodCode = foodCode;
-        Debug.Log("Food selectot set food code to: " + foodCode);
+        Debug.Log("[FoodSelector] Food hiện đang chọn: " + foodCode);
         SetFoodSelectedPrefab(foodCode);
-
     }
     
     void SetFoodSelectedPrefab(string foodCode)
@@ -42,10 +47,10 @@ public class FoodSelector : MonoBehaviour
         foodSelectedPrefab = Resources.Load<GameObject>("Foods/" + foodCode);
         if (foodSelectedPrefab == null)
         {
-            Debug.LogError("Không tìm thấy prefab món ăn với mã: " + foodCode);
+            Debug.LogError("[FoodSelector] Không tìm thấy prefab món ăn với mã: " + foodCode);
             return;
         }
-        Debug.Log("Đã chọn món ăn: " + foodSelectedPrefab.name);
+        Debug.Log("[FoodSelector] Đã chọn món ăn: " + foodSelectedPrefab.name);
     }
 
     public void SetFoodForCooker()
@@ -56,8 +61,9 @@ public class FoodSelector : MonoBehaviour
         {
             if (cooker.cookerId == cookerId)
             {
-                cooker.SetFood(this.foodSelectedPrefab);
-                Debug.Log("Đã gán món ăn ID " + foodSelectedPrefab.name + " cho Cooker ID: " + cooker.cookerId);
+                cooker.SetFood(this.foodSelectedPrefab,this.foodTime);
+                Debug.Log("[FoodSelector] Đã gán món ăn " + foodSelectedPrefab.name + " cho Cooker ID: " + cooker.cookerId);
+                 gameObject.SetActive(false);
                 break;
             }
         }
@@ -65,7 +71,6 @@ public class FoodSelector : MonoBehaviour
 
     void LoadButtons()
     {
-       // Load tất cả prefab button trong Resources/FoodSelectList_0
         GameObject[] buttonPrefabs = Resources.LoadAll<GameObject>("FoodSelectList_0");
 
         foreach (GameObject prefab in buttonPrefabs)

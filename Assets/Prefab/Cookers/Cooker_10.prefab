@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 243804383
   m_SortingLayer: 1
   m_SortingOrder: 3
-  m_Sprite: {fileID: -474066784, guid: c3dadc3146fb03e41aa9f347ada418a8, type: 3}
+  m_Sprite: {fileID: -1747370187, guid: c3dadc3146fb03e41aa9f347ada418a8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,7 +99,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11404ba6fafe0a64abe330e7f879d73b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foodId: 0
+  foodPrefab: {fileID: 0}
+  cookerId: 
+  cookingTime: 0
+  isCooking: 0
 --- !u!60 &4392463525307258687
 PolygonCollider2D:
   m_ObjectHideFlags: 0

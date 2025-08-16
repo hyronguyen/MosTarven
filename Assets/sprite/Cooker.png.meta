@@ -70,7 +70,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -129,15 +129,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Cooker_0
+      name: Cooker_3
       rect:
         serializedVersion: 2
-        x: 4
+        x: 37
         y: 162
         width: 16
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -150,15 +150,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cooker_1
+      name: Cooker_6
       rect:
         serializedVersion: 2
-        x: 22
+        x: 92
         y: 162
         width: 16
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -171,15 +171,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cooker_2
+      name: Cooker_7
       rect:
         serializedVersion: 2
-        x: 40
+        x: 109
         y: 162
         width: 16
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -192,15 +192,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cooker_3
+      name: Cooker_12
       rect:
         serializedVersion: 2
-        x: 59
-        y: 162
+        x: 19
+        y: 143
         width: 16
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -213,15 +213,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cooker_4
+      name: Cooker_0
       rect:
         serializedVersion: 2
-        x: 77
+        x: 1
         y: 162
         width: 16
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -234,15 +234,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cooker_5
+      name: Cooker_2
       rect:
         serializedVersion: 2
-        x: 95
+        x: 19
         y: 162
         width: 16
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -255,15 +255,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cooker_6
+      name: Cooker_5
       rect:
         serializedVersion: 2
-        x: 4
-        y: 140
+        x: 74
+        y: 162
         width: 16
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -276,15 +276,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cooker_7
+      name: Cooker_9
       rect:
         serializedVersion: 2
-        x: 22
-        y: 140
+        x: 145
+        y: 162
         width: 16
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -297,36 +297,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cooker_8
+      name: Cooker_4
       rect:
         serializedVersion: 2
-        x: 40
-        y: 140
+        x: 56
+        y: 162
         width: 16
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 21ca475ec322b18409a65f3f21ea7c14
-      internalID: -266110748
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Cooker_9
-      rect:
-        serializedVersion: 2
-        x: 58
-        y: 140
-        width: 16
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -339,15 +318,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cooker_10
+      name: Cooker_11
       rect:
         serializedVersion: 2
-        x: 4
-        y: 120
+        x: 1
+        y: 143
         width: 16
-        height: 18
+        height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -360,15 +339,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cooker_11
+      name: Cooker_8
       rect:
         serializedVersion: 2
-        x: 22
-        y: 120
+        x: 127
+        y: 162
         width: 16
-        height: 18
+        height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -381,15 +360,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cooker_12
+      name: Cooker_13
       rect:
         serializedVersion: 2
-        x: 40
-        y: 120
+        x: 37
+        y: 143
         width: 16
-        height: 18
+        height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -402,15 +381,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cooker_13
+      name: Cooker_10
       rect:
         serializedVersion: 2
-        x: 64
-        y: 121
+        x: 163
+        y: 162
         width: 16
-        height: 18
+        height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -418,6 +397,153 @@ TextureImporter:
       bones: []
       spriteID: 97418da361e6f5b4b8d0654d4478385b
       internalID: -1511827160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cooker_14
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 144
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 291c9484ded98e943b77e76750f233d1
+      internalID: 790891725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cooker_15
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 144
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fae3bc2371686d84bbcedb9f8cce6278
+      internalID: 1082256795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cooker_16
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 144
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86a822bf08baa0e4180b6821dc310dc3
+      internalID: -392343592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cooker_17
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 120
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98462d9ebb0524f40b9f1e1f999bd28b
+      internalID: -204574569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cooker_18
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 120
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a72e0d7e7c271314ea87a4e31641e0db
+      internalID: 210817842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cooker_19
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 120
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52a013e0c61fa8a418198d2976534aec
+      internalID: 8596207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cooker_20
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 121
+        width: 25
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84e19268e3c23a04dab15bdedd7e4da5
+      internalID: -306206006
       vertices: []
       indices: 
       edges: []
@@ -433,20 +559,27 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Cooker_3: 382358821
-      Cooker_6: -474066784
-      Cooker_7: -2001040719
-      Cooker_12: 303729957
-      Cooker_0: 555331337
-      Cooker_2: -1747370187
-      Cooker_5: -2095713803
-      Cooker_9: 1455980926
-      Cooker_1: -527795783
-      Cooker_4: -1514436529
-      Cooker_11: -1291367128
-      Cooker_8: -266110748
-      Cooker_13: -1511827160
-      Cooker_10: -315703997
+      Cooker_19: 8596207
+      Cooker_16: -392343592
+      Cooker_3: 555331337
+      Cooker_6: -527795783
+      Cooker_7: -1747370187
+      Cooker_12: 382358821
+      Cooker_15: 1082256795
+      Cooker_18: 210817842
+      Cooker_0: -1514436529
+      Cooker_2: -2095713803
+      Cooker_5: -474066784
+      Cooker_14: 790891725
+      Cooker_9: -2001040719
+      Cooker_1: -266110748
+      Cooker_4: 1455980926
+      Cooker_11: -315703997
+      Cooker_8: -1291367128
+      Cooker_17: -204574569
+      Cooker_13: 303729957
+      Cooker_10: -1511827160
+      Cooker_20: -306206006
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 2267625653342828798}
   - component: {fileID: 9166278610601771992}
   m_Layer: 5
-  m_Name: Food0_button 1
+  m_Name: Food19_button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -195,22 +195,10 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 520599006217485636}
+  m_TargetGraphic: {fileID: 0}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4318143701562682534}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &9166278610601771992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,6 +211,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c77e7959340fab74ba7d42d20a1973f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iconIamge: {fileID: 1667227148, guid: 3a23da67e782aea439e980d6ff94a5cd, type: 3}
-  foodPrice: 100
-  foodName: Rotten Meat
+  iconIamge: {fileID: 0}
+  foodPrice: 1
+  foodName: a
+  foodDescription: a
+  foodTime: 0
+  foodLvToUnlock: 0

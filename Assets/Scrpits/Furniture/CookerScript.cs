@@ -9,6 +9,22 @@ public class CookerScript : MonoBehaviour
     public GameObject foodPrefab;  
     public string cookerId; 
     private GameObject FoodSelector;
+    public float cookingTime ;
+    public bool isCooking = false;
+
+    void Update(){
+        if(cookingTime > 0){
+            cookingTime -= Time.deltaTime;
+            isCooking = true;
+            animator.SetBool("isCooking", isCooking);
+            Debug.Log("Đang nấu món ăn: " + foodPrefab.name + " Thời gian còn lại: " + cookingTime);
+            if(cookingTime <= 0){
+                Debug.Log("Món ăn đã sẵn sàng: " + foodPrefab.name);
+             isCooking = false;
+             animator.SetBool("isCooking", isCooking);
+            }
+        }
+    }
 
     void Start()
     {
@@ -40,17 +56,18 @@ public class CookerScript : MonoBehaviour
         {
             FoodSelector.SetActive(true);
             FoodSelector.GetComponent<FoodSelector>().SetCookerId(cookerId);
-            //animator.SetBool("isCooking", true);
+            
         }
     }
 
-    public void SetFood(GameObject foodPrefab)
+    public void SetFood(GameObject foodPrefab,int cookingTime)
     {
 
         this.foodPrefab = foodPrefab;
+        this.cookingTime = cookingTime;
     }
 
-    // L?y ID m�n ?ang n?u
+
     public void GetFoodId()
     {
         Debug.Log("Food ID: " + foodPrefab.name);

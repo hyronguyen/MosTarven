@@ -9,8 +9,8 @@ public class BuildManager : MonoBehaviour
     // Các cell đã được đặt
     public Dictionary<Vector3Int, GameObject> placedObjects = new Dictionary<Vector3Int, GameObject>();
     
-    public int countLeftExpand = 0; // Biến đếm số lần mở rộng bên trái
-    public int countRightExpand = 0; // Biến đếm số lần mở rộng bên phải
+    public int countLeftExpand = 0;
+    public int countRightExpand = 0;
 
     private void Awake()
     {
