@@ -39,6 +39,7 @@ public class CookerScript : MonoBehaviour
         if (animator != null)
         {
             FoodSelector.SetActive(true);
+            Debug.Log("FoodSelector đã được kích hoạt cho Cooker: " + cookerId);
             //animator.SetBool("isCooking", true);
         }
     }

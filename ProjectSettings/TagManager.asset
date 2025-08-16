@@ -48,9 +48,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: PlacedUnit
+  - name: Playground
     uniqueID: 243804383
     locked: 0
-  - name: Player
+  - name: Food
     uniqueID: 3534457657
     locked: 0
