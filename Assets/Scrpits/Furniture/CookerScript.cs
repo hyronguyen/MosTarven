@@ -6,7 +6,7 @@ public class CookerScript : MonoBehaviour
     private Animator animator;
 
     [SerializeField]
-    private int foodId;  
+    public GameObject foodPrefab;  
     public string cookerId; 
     private GameObject FoodSelector;
 
@@ -39,20 +39,20 @@ public class CookerScript : MonoBehaviour
         if (animator != null)
         {
             FoodSelector.SetActive(true);
-            Debug.Log("FoodSelector đã được kích hoạt cho Cooker: " + cookerId);
+            FoodSelector.GetComponent<FoodSelector>().SetCookerId(cookerId);
             //animator.SetBool("isCooking", true);
         }
     }
 
-    // Cho ph�p script kh�c g�n ID m�n ?n
-    public void SetFood(int id)
+    public void SetFood(GameObject foodPrefab)
     {
-        foodId = id;
+
+        this.foodPrefab = foodPrefab;
     }
 
     // L?y ID m�n ?ang n?u
-    public int GetFoodId()
+    public void GetFoodId()
     {
-        return foodId;
+        Debug.Log("Food ID: " + foodPrefab.name);
     }
 }

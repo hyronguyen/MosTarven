@@ -8,12 +8,19 @@ public class FoodSelectButton : MonoBehaviour
     public Sprite iconIamge;
     public int foodPrice;
     public string foodName;
+    private string foodCode;
+
+    void Start()
+    {
+     foodCode = iconIamge.name; 
+    }
 
     public void DebugFood()
     {
         Debug.Log("Food Name: " + foodName);
         Debug.Log("Food Price: " + foodPrice);
         Debug.Log("Food Icon: " + iconIamge.name);
+        Debug.Log("Food Code: " + foodCode);
     
         // Đổi ảnh
         GameObject foodImageObj = GameObject.FindGameObjectWithTag("foodImageFoodSelector");
@@ -23,7 +30,7 @@ public class FoodSelectButton : MonoBehaviour
             if (img != null)
             {
                 img.sprite = iconIamge;
-                Debug.Log("Đã đổi ảnh của foodImageFoodSelector");
+    
             }
         }
 
@@ -36,7 +43,7 @@ public class FoodSelectButton : MonoBehaviour
                 if (legacyText != null)
                 {
                     legacyText.text = foodName;
-                    Debug.Log("Đã đổi tên món ăn (UI Text)");
+               
                 }
             
         }
@@ -50,10 +57,22 @@ public class FoodSelectButton : MonoBehaviour
                 if (legacyText != null)
                 {
                     legacyText.text = foodPrice.ToString();
-                    Debug.Log("Đã đổi giá món ăn (UI Text)");
                 }
             
         }
+     
+        // Gọi hàm SetFoodSelectedPrefab trong FoodSelector
+        FoodSelector foodSelector = FindObjectOfType<FoodSelector>();
+        if (foodSelector != null)
+        {
+            foodSelector.SetFoodCode(foodCode);
+            Debug.Log("Đã gọi hàm SetFoodCode trong FoodSelector với mã món ăn: " + foodCode);
+        }
+        else
+        {
+            Debug.LogError("Không tìm thấy FoodSelector trong scene.");
+        }
+    
     }
     
 }
