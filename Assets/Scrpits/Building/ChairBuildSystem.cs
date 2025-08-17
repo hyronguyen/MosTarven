@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Linq;
+
 
 public class ChairBuildSystem : MonoBehaviour
 {
@@ -15,6 +17,8 @@ public class ChairBuildSystem : MonoBehaviour
     private bool isPlacing = false;
     private HashSet<Vector3Int> validCells;
     private bool isFlipped = false;
+
+    private Dictionary<string, List<Vector3Int>> tableCellsMap = new Dictionary<string, List<Vector3Int>>();
 
     // START ####################################################################################
     void Start()
@@ -87,30 +91,42 @@ public class ChairBuildSystem : MonoBehaviour
     // FUNCTION ####################################################################################
     //FUNTION - Kiểm tra lại các ô hợp lệ để đặt ghế
     private void ReCheckValidCell()
+{
+    validCells = new HashSet<Vector3Int>();
+    tableCellsMap.Clear();
+
+    // Tìm tất cả bàn
+    TableScript[] tables = FindObjectsOfType<TableScript>();
+    foreach (var table in tables)
     {
-        validCells = new HashSet<Vector3Int>();
+        if (table.hasChair) continue;
 
-        // Tìm tất cả bàn
-        TableScript[] tables = FindObjectsOfType<TableScript>();
-        foreach (var table in tables)
+        Vector3Int tableCell = tilemap.WorldToCell(table.transform.position);
+
+        // Hai cell hợp lệ
+        Vector3Int leftCell = tableCell - Vector3Int.left;
+        Vector3Int upCell = tableCell + Vector3Int.up;
+
+        List<Vector3Int> cells = new List<Vector3Int>();
+
+        if (tilemap.HasTile(leftCell))
         {
-            Vector3Int tableCell = tilemap.WorldToCell(table.transform.position);
-
-            // 2 ô hợp lệ: bên trái và bên trên bàn
-            Vector3Int leftCell = tableCell - Vector3Int.left; // Sửa lại ở đây
-            Vector3Int upCell = tableCell + Vector3Int.up;
-
-            if (tilemap.HasTile(leftCell))
-            {
-                validCells.Add(leftCell);
-            }
-            if (tilemap.HasTile(upCell))
-            {
-                validCells.Add(upCell);
-            }
+            validCells.Add(leftCell);
+            cells.Add(leftCell);
         }
-      
+        if (tilemap.HasTile(upCell))
+        {
+            validCells.Add(upCell);
+            cells.Add(upCell);
+        }
+
+        // Ghi nhớ cell theo tableId
+        if (cells.Count > 0)
+        {
+            tableCellsMap[table.tableId] = cells;
+        }
     }
+}
 
     //FUNTION - Bắt đau đặt ghế
     public void StartPlacing()
@@ -132,24 +148,39 @@ public class ChairBuildSystem : MonoBehaviour
 
     //FUNTION - Đặt ghế
     private void PlaceChair(Vector3Int cellPos, bool isLeftCell)
+{
+    if (!validCells.Contains(cellPos) || BuildManager.Instance.placedObjects.ContainsKey(cellPos)) return;
+
+    Vector3 placePosition = tilemap.GetCellCenterWorld(cellPos);
+    placePosition.z = 0f;
+    GameObject obj = Instantiate(chairPrefab, placePosition, Quaternion.identity);
+
+    int sortingOrder = Mathf.RoundToInt(-(placePosition.y * 1000f) - placePosition.x);
+    SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
+    if (sr != null)
     {
-        if (!validCells.Contains(cellPos) || BuildManager.Instance.placedObjects.ContainsKey(cellPos)) return;
-
-        Vector3 placePosition = tilemap.GetCellCenterWorld(cellPos);
-        placePosition.z = 0f;
-        GameObject obj = Instantiate(chairPrefab, placePosition, Quaternion.identity);
-
-        int sortingOrder = Mathf.RoundToInt(-(placePosition.y * 1000f) - placePosition.x);
-        SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
-        if (sr != null)
-        {
-            sr.sortingOrder = sortingOrder;
-            sr.flipX = isLeftCell;
-        }
-
-        BuildManager.Instance.placedObjects[cellPos] = obj;
-        CancelPlacing();
+        sr.sortingOrder = sortingOrder;
+        sr.flipX = isLeftCell;
     }
+
+    // Tìm table tương ứng với cell này
+    foreach (var kvp in tableCellsMap)
+    {
+        if (kvp.Value.Contains(cellPos))
+        {
+            TableScript table = FindObjectsOfType<TableScript>()
+                                .FirstOrDefault(t => t.tableId == kvp.Key);
+            if (table != null)
+            {
+                table.SetHasChair(true);
+            }
+            break;
+        }
+    }
+
+    BuildManager.Instance.placedObjects[cellPos] = obj;
+    CancelPlacing();
+}
 
     //FUNTION - Hủy đặt ghế
     private void CancelPlacing()
