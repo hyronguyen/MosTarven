@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4392463525307258680}
   - component: {fileID: 4392463525307258681}
   m_Layer: 0
-  m_Name: Cooker_10_ghost
+  m_Name: Cooker_ghost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: -1747370187, guid: c3dadc3146fb03e41aa9f347ada418a8, type: 3}
+  m_Sprite: {fileID: 921498798, guid: c3dadc3146fb03e41aa9f347ada418a8, type: 3}
   m_Color: {r: 0, g: 0.8784314, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

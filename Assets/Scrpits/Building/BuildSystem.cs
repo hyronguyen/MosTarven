@@ -9,6 +9,7 @@ public class BuildSystem : MonoBehaviour
     private Tilemap tilemap;               // Tilemap nền
     public GameObject unitPrefab;          // Prefab cần đặt
     public GameObject ghostUnitPrefab;     // Prefab ghost (trong suốt)
+    public string unitCode;          // Tên đơn vị đang đặt
 
     private GameObject currentGhost;       // Phiên bản ghost đang hoạt động
     private bool isPlacing = false;
@@ -135,7 +136,7 @@ public class BuildSystem : MonoBehaviour
 
         placePosition.z = 0f;
         GameObject obj = Instantiate(unitPrefab, placePosition, Quaternion.identity);
-
+        
         int sortingOrder = Mathf.RoundToInt(-(placePosition.y * 1000f) - placePosition.x);
 
         SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
@@ -145,6 +146,7 @@ public class BuildSystem : MonoBehaviour
             sr.flipX = isFlipped; // Áp dụng flip cho object thật
         }
 
+        obj.GetComponent<Funiture>().SetFuniture(unitCode,"cooker"); // Đặt sorting order mặc định
         // Ghi lại object đã đặt ở vị trí này
         BuildManager.Instance.placedObjects[cellPos] = obj;
 

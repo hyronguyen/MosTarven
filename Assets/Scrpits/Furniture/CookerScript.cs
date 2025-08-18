@@ -1,27 +1,42 @@
 using UnityEngine;
 using System;
+#if UNITY_EDITOR
+using UnityEditor;
+using UnityEditor.Animations;
+#endif
 
 public class CookerScript : MonoBehaviour
 {
-    private Animator animator;
-
+    // LOCAL VARIABLES ##########################################################################
+    [Header("Animation:")]
     [SerializeField]
-    public GameObject foodPrefab;  
+    private Animator animator;
+    private AnimationClip idleClip;
+    private AnimationClip cookingClip;
+    private AnimationClip doneClip;
+    public float animationSpeed = 3f; 
+
+    [Header("Thông tin chung:")]
+    private Funiture furnituredDetail; // Thông tin về đồ nội thất
+
+    [Header("Thông tin nấu ăn:")]
+    [SerializeField]
+    private GameObject foodPrefab; 
     public string cookerId; 
     private GameObject FoodSelector;
-    public float cookingTime ;
-    public bool isCooking = false;
+    private float cookingTime ;
+    private bool isCooking = false;
+    private string cookerCode;
 
     void Update(){
         if(cookingTime > 0){
             cookingTime -= Time.deltaTime;
             isCooking = true;
             animator.SetBool("isCooking", isCooking);
-            Debug.Log("Đang nấu món ăn: " + foodPrefab.name + " Thời gian còn lại: " + cookingTime);
+            Debug.Log("[CookerScript] Đang nấu món ăn: " + foodPrefab.name + " Thời gian còn lại: " + cookingTime);
             if(cookingTime <= 0){
-                Debug.Log("Món ăn đã sẵn sàng: " + foodPrefab.name);
-             isCooking = false;
-             animator.SetBool("isCooking", isCooking);
+                Debug.Log("[CookerScript] Món ăn đã sẵn sàng: " + foodPrefab.name);
+             animator.SetBool("isDone", true);
             }
         }
     }
@@ -31,24 +46,122 @@ public class CookerScript : MonoBehaviour
         cookerId = "CO" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
         Debug.Log("Cooker ID: " + cookerId);
 
+        furnituredDetail = GetComponent<Funiture>();
+        cookerCode = furnituredDetail.GetFunitureCode();
         animator = GetComponent<Animator>();
         if (animator == null)
         {
-            Debug.LogError("Kh�ng t�m th?y Animator tr�n object: " + gameObject.name);
+            Debug.LogError("[CookerScript] Không tìm thấy animator: " + gameObject.name);
         }
 
         Transform parent = GameObject.Find("Canvas").transform;
         FoodSelector = parent.Find("FoodSellect_panel")?.gameObject;
         if (FoodSelector != null)
         {
-            Debug.Log("Đã tìm thấy FoodSellect_panel");
+            Debug.Log("[CookerScript] Đã tìm thấy FoodSellect_panel");
         }
         else
         {
-            Debug.LogError("Không tìm thấy FoodSellect_panel trong scene");
+            Debug.LogError("[CookerScript] Không tìm thấy FoodSellect_panel trong scene");
         }
-
+     LoadSpritesAndSetupClips();
     }
+
+#if UNITY_EDITOR
+      void LoadSpritesAndSetupClips()
+{
+    if (string.IsNullOrEmpty(cookerCode))
+    {
+        Debug.LogError("[CookerScript] Chưa thiết lập cookerCode cho " + gameObject.name);
+        return;
+    }
+
+    // Load tất cả sprite trong Resources/CookerSprites/{cookerCode}
+    Sprite[] sprites = Resources.LoadAll<Sprite>($"CookerSprites/{cookerCode}");
+
+    Debug.Log($"[CookerScript] CookerCode={cookerCode}, Loaded={sprites.Length} sprites");
+
+    for (int i = 0; i < sprites.Length; i++)
+    {
+        Debug.Log($"[{cookerCode}] Sprite[{i}] = {sprites[i].name}");
+    }
+
+    if (sprites == null || sprites.Length < 9)
+    {
+        Debug.LogError($"[CookerScript] Không đủ sprite cho {cookerCode}. Yêu cầu tối thiểu 9 sprite (0–8)");
+        return;
+    }
+
+    AnimationClip idle    = CreateClipFromSprites(new Sprite[] { sprites[0], sprites[1], sprites[2] }, 5f, $"{cookerCode}_idle");
+    AnimationClip cooking = CreateClipFromSprites(new Sprite[] { sprites[3], sprites[4], sprites[5] }, 5f, $"{cookerCode}_cooking");
+    AnimationClip done    = CreateClipFromSprites(new Sprite[] { sprites[6], sprites[7], sprites[8] }, 5f, $"{cookerCode}_done");
+
+    Animator animator = GetComponent<Animator>();
+    if (animator != null && animator.runtimeAnimatorController != null)
+    {
+        AnimatorOverrideController overrideCtrl = new AnimatorOverrideController(animator.runtimeAnimatorController);
+
+        overrideCtrl["Cooker_idle"]    = idle;
+        overrideCtrl["Cooker_cooking"] = cooking;
+        overrideCtrl["Cooker_done"]    = done;
+
+        animator.runtimeAnimatorController = overrideCtrl;
+        Debug.Log($"[CookerScript] ✔️ {cookerCode} đã có Animator riêng với Idle/Working/Done");
+    }
+    else
+    {
+        Debug.LogError($"[CookerScript] Không tìm thấy Animator cho {gameObject.name}");
+    }
+}
+
+AnimationClip CreateClipFromSprites(Sprite[] sprites, float frameRate, string clipName)
+{
+    if (sprites == null || sprites.Length == 0)
+    {
+        Debug.LogError($"[CreateClipFromSprites] Không tìm thấy sprite nào cho clip {clipName}");
+        return null;
+    }
+
+    Debug.Log($"[CreateClipFromSprites] Clip {clipName} có {sprites.Length} sprites");
+
+    AnimationClip clip = new AnimationClip
+    {
+        frameRate = frameRate,
+        name = clipName
+    };
+
+    // ⚡ Bắt buộc: Set loop
+    AnimationClipSettings settings = new AnimationClipSettings
+    {
+        loopTime = true
+    };
+    AnimationUtility.SetAnimationClipSettings(clip, settings);
+
+    EditorCurveBinding binding = new EditorCurveBinding
+    {
+        type = typeof(SpriteRenderer),
+        path = "",
+        propertyName = "m_Sprite"
+    };
+
+    ObjectReferenceKeyframe[] keyFrames = new ObjectReferenceKeyframe[sprites.Length];
+    for (int i = 0; i < sprites.Length; i++)
+    {
+        keyFrames[i] = new ObjectReferenceKeyframe
+        {
+            time = (float)i / frameRate,
+            value = sprites[i]
+        };
+    }
+
+    AnimationUtility.SetObjectReferenceCurve(clip, binding, keyFrames);
+
+    return clip;
+}
+
+
+#endif
+    
 
     void OnMouseDown()
     {
@@ -70,6 +183,12 @@ public class CookerScript : MonoBehaviour
 
     public void GetFoodId()
     {
-        Debug.Log("Food ID: " + foodPrefab.name);
+        Debug.Log("[CookerScript] Food ID: " + foodPrefab.name);
+    }
+
+    public void SetCookerCode(string code)
+    {
+        this.cookerCode = code;
+        Debug.Log("[CookerScript] Cooker code: " + cookerCode);
     }
 }

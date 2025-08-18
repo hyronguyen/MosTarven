@@ -1,0 +1,16 @@
+{
+  "cookers": [
+    {
+      "cookerCode": "Cooker0",
+      "cookerName": "Campfire",    
+      "cookerPrice": 500, 
+      "cookerLvl": 1
+    },
+    {   
+      "cookerCode": "Cooker10",
+      "cookerName": "Mordern Stove",    
+      "cookerPrice": 500, 
+      "cookerLvl": 10
+    }
+  ]
+}

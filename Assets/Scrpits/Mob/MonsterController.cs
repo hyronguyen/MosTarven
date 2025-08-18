@@ -100,17 +100,17 @@ public class MonsterController : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogWarning("Component Text không tìm thấy trên 'Name'");
+                    Debug.LogWarning("[MonsterController] Component Text không tìm thấy trên 'Name'");
                 }
             }
             else
             {
-                Debug.LogWarning("Không tìm thấy con 'Name' trong mobDetailPanel");
+                Debug.LogWarning("[MonsterController] Không tìm thấy con 'Name' trong mobDetailPanel");
             }
         }
         else
         {
-            Debug.LogWarning("Không tìm thấy đối tượng có tag 'mobDetailPanel'");
+            Debug.LogWarning("[MonsterController] Không tìm thấy đối tượng có tag 'mobDetailPanel'");
         }
     }
 
