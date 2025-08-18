@@ -26,17 +26,21 @@ public class CookerScript : MonoBehaviour
     private GameObject FoodSelector;
     private float cookingTime ;
     private bool isCooking = false;
+    private bool isDone = false;
     private string cookerCode;
 
+#region LIFE 
     void Update(){
         if(cookingTime > 0){
             cookingTime -= Time.deltaTime;
             isCooking = true;
             animator.SetBool("isCooking", isCooking);
-            Debug.Log("[CookerScript] Đang nấu món ăn: " + foodPrefab.name + " Thời gian còn lại: " + cookingTime);
+            // Debug.Log("[CookerScript] Đang nấu món ăn: " + foodPrefab.name + " Thời gian còn lại: " + cookingTime);
             if(cookingTime <= 0){
                 Debug.Log("[CookerScript] Món ăn đã sẵn sàng: " + foodPrefab.name);
-             animator.SetBool("isDone", true);
+            isDone = true;
+            isCooking = false;
+             animator.SetBool("isDone", isDone);
             }
         }
     }
@@ -66,7 +70,9 @@ public class CookerScript : MonoBehaviour
         }
      LoadSpritesAndSetupClips();
     }
+#endregion
 
+#region RENDER AND ANIMATION SETUP
 #if UNITY_EDITOR
       void LoadSpritesAndSetupClips()
 {
@@ -161,25 +167,37 @@ AnimationClip CreateClipFromSprites(Sprite[] sprites, float frameRate, string cl
 
 
 #endif
-    
+#endregion
 
+
+#region UNITY EVENTS
     void OnMouseDown()
     {
-        if (animator != null)
+        if(isCooking){
+            Debug.Log("[CookerScript] Đang nấu món ăn, không thể chọn món mới.");
+        }
+        else if (!isCooking && animator != null && !isDone)
         {
             FoodSelector.SetActive(true);
             FoodSelector.GetComponent<FoodSelector>().SetCookerId(cookerId);
             
         }
+        else if (isDone && animator != null && !isCooking){
+            isDone = false;
+            animator.SetBool("isCooking", isCooking);
+            animator.SetBool("isDone", isDone);
+            Debug.Log("[CookerScript] Món ăn đã sẵn sàng, bạn có thể lấy món ăn ra.");
+        }
     }
+#endregion
 
+#region PUBLIC METHODS
     public void SetFood(GameObject foodPrefab,int cookingTime)
     {
 
         this.foodPrefab = foodPrefab;
         this.cookingTime = cookingTime;
     }
-
 
     public void GetFoodId()
     {
@@ -192,3 +210,5 @@ AnimationClip CreateClipFromSprites(Sprite[] sprites, float frameRate, string cl
         Debug.Log("[CookerScript] Cooker code: " + cookerCode);
     }
 }
+
+#endregion
